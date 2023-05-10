@@ -53,9 +53,7 @@ minetest.register_on_joinplayer(
   end
 )
 
-minetest.register_on_player_inventory_action(
-  function(player, action) handler(player, action) end
-)
+minetest.register_on_player_inventory_action(handler)
 
 minetest.register_on_dignode(function(_, _, player) handler(player, "dig") end)
 
