@@ -58,12 +58,12 @@ minetest.register_on_player_inventory_action(
 )
 
 minetest.register_on_dignode(
-  function(pos, oldnode, player) handler(player, "dignode") end
+  function(pos, oldnode, player) handler(player, "dig") end
 )
 
 minetest.register_on_placenode(
   function(pos, newnode, player, oldnode, itemstack, pointed_thing)
-    minetest.after(delay, handler, player, "placenode")
+    minetest.after(delay, handler, player, "place")
   end
 )
 
