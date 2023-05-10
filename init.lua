@@ -54,34 +54,26 @@ minetest.register_on_joinplayer(
 )
 
 minetest.register_on_player_inventory_action(
-  function(player, action, inventory, inventory_info) handler(player, "action") end
+  function(player, action) handler(player, action) end
 )
 
-minetest.register_on_dignode(
-  function(pos, oldnode, player) handler(player, "dig") end
-)
+minetest.register_on_dignode(function(_, _, player) handler(player, "dig") end)
 
 minetest.register_on_placenode(
-  function(pos, newnode, player, oldnode, itemstack, pointed_thing)
-    minetest.after(delay, handler, player, "place")
-  end
+  function(_, _, player) minetest.after(delay, handler, player, "place") end
 )
 
 minetest.register_on_item_pickup(
-  function(itemstack, player, pointed_thing, time_from_last_punch)
-    minetest.after(delay, handler, player, "pickup")
-  end
+  function(_, player) minetest.after(delay, handler, player, "pickup") end
 )
 
 minetest.register_on_item_eat(
-  function(hp_change, replace_with_item, itemstack, player, pointed_thing)
-    minetest.after(delay, handler, player, "eat")
-  end
+  function(_, _, _, player) minetest.after(delay, handler, player, "eat") end
 )
 
 -----------
 -- DEBUG --
 -----------
 
--- local modpath = minetest.get_modpath(minetest.get_current_modname())
--- dofile(modpath .. "/test.lua")
+local modpath = minetest.get_modpath(minetest.get_current_modname())
+dofile(modpath .. "/test.lua")
