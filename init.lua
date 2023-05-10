@@ -22,7 +22,7 @@ end
 ---@param player mt.PlayerObjectRef|table
 ---@param action_name string|nil
 function minetestia.handle_player_inventory_changes(player, action_name)
-  if not player:is_player() then return end
+  if not player.is_player or not player:is_player() then return end
   local inv = player:get_inventory()
   local player_name = player:get_player_name()
   local old_list = minetestia.inventory_lists[player_name]
