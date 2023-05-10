@@ -2,10 +2,11 @@
 
 Provide a global callback for handling inventory changes.
 
-It can handle all types of natural change events (`on_place`, `on_drop`,
-`on_dig`, `on_eat`, etc), except the changes made manually in code. So please
-don't forget to call `minetestia.handle_player_inventory_changes(player)` after
-using inventory changing functions:
+It can handle all types of natural change events (`on_player_inventory_action`,
+`on_dignode`, `on_placenode`, `on_item_pickup`, `on_item_eat`), except the
+changes made manually in code. So please don't forget to call
+`minetestia.handle_player_inventory_changes(player)` after using inventory
+changing functions:
 
 ```lua
 local name = player:get_player_name()
