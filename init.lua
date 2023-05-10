@@ -19,7 +19,7 @@ function minetestia.register_on_player_inventory_change(func)
 end
 
 -- Detect and trigger callbacks manually.
----@param player mt.PlayerObjectRef|any
+---@param player mt.PlayerObjectRef|table
 ---@param action_name string|nil
 function minetestia.handle_player_inventory_changes(player, action_name)
   if not player:is_player() then return end
