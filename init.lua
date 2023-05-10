@@ -6,7 +6,7 @@ minetestia = minetestia or {}
 ---@type table<string, mt.ItemStack[]>
 minetestia.inventory_lists = {}
 
----@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:string|nil)
+---@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:"move"|"put"|"take"|"dig"|"place"|"pickup"|"eat"|string|nil)
 
 -- All registered inventory change handlers.
 ---@type {[integer]: mf.on_player_inventory_change}
