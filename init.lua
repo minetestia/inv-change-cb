@@ -75,5 +75,5 @@ minetest.register_on_item_eat(
 -- DEBUG --
 -----------
 
-local modpath = minetest.get_modpath(minetest.get_current_modname())
-dofile(modpath .. "/test.lua")
+-- local modpath = minetest.get_modpath(minetest.get_current_modname())
+-- dofile(modpath .. "/test.lua")
