@@ -4,7 +4,7 @@ minetestia = minetestia or {}
 
 -- All players inventory `"main"` lists, indexed by player name.
 ---@type table<string, mt.ItemStack[]>
-minetestia.inventory_lists = {}
+minetestia.player_inventory_main_lists = {}
 
 ---@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:"move"|"put"|"take"|"dig"|"place"|"pickup"|"eat"|string|nil)
 
@@ -25,7 +25,7 @@ function minetestia.handle_player_inventory_changes(player, action_name)
   if not player.is_player or not player:is_player() then return end
   local inv = player:get_inventory()
   local player_name = player:get_player_name()
-  local old_list = minetestia.inventory_lists[player_name]
+  local old_list = minetestia.player_inventory_main_lists[player_name]
   local new_list = inv:get_list "main"
 
   for i, new_item in ipairs(new_list) do
@@ -48,7 +48,7 @@ local handler = minetestia.handle_player_inventory_changes
 
 minetest.register_on_joinplayer(
   function(player)
-    minetestia.inventory_lists[player:get_player_name()] =
+    minetestia.player_inventory_main_lists[player:get_player_name()] =
       player:get_inventory():get_list "main"
   end
 )

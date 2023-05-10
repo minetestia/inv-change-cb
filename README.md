@@ -27,7 +27,7 @@ minetestia.handle_player_inventory_changes(player, "custom")
 **OR** just update cache (if you don't want to trigger them for some reason):
 
 ```lua
-minetestia.inventory_lists[name] = list
+minetestia.player_inventory_main_lists[name] = list
 ```
 
 ## Usage
