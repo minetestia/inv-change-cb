@@ -6,14 +6,14 @@ minetestia = minetestia or {}
 ---@type table<string, mt.ItemStack[]>
 minetestia.inventory_lists = {}
 
----@alias mf.registered_on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:string|nil)
+---@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:string|nil)
 
 -- All registered inventory change handlers.
----@type {[integer]: mf.registered_on_player_inventory_change}
+---@type {[integer]: mf.on_player_inventory_change}
 minetestia.registered_on_player_inventory_change = {}
 
 -- Register global inventory change callback.
----@param func mf.registered_on_player_inventory_change
+---@param func mf.on_player_inventory_change
 function minetestia.register_on_player_inventory_change(func)
   table.insert(minetestia.registered_on_player_inventory_change, func)
 end
