@@ -1,4 +1,4 @@
--- The global scope for the all Minetestia Forge mods.
+-- The global scope for the all _**Minetestia Forge**_ mods.
 ---@diagnostic disable-next-line: lowercase-global
 minetestia = minetestia or {}
 
