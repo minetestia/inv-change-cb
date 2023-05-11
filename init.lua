@@ -22,28 +22,29 @@ end
 ---@param player mt.PlayerObjectRef|table
 ---@param action_name string|nil
 function minetestia.handle_player_inventory_changes(player, action_name)
-  if not player.is_player or not player:is_player() then return end
-  local inv = player:get_inventory()
-  local player_name = player:get_player_name()
-  local old_list = minetestia.player_inventory_main_lists[player_name]
-  local new_list = inv:get_list "main"
+  minetest.after(0.1, function()
+    if not player.is_player or not player:is_player() then return end
+    local inv = player:get_inventory()
+    local player_name = player:get_player_name()
+    local old_list = minetestia.player_inventory_main_lists[player_name]
+    local new_list = inv:get_list "main"
 
-  for i, new_item in ipairs(new_list) do
-    local old_item = old_list[i]
-    if new_item ~= old_item then
-      old_list[i] = new_item
-      for _, fn in ipairs(minetestia.registered_on_player_inventory_change) do
-        fn(player, old_item, new_item, i, action_name)
+    for i, new_item in ipairs(new_list) do
+      local old_item = old_list[i]
+      if new_item ~= old_item then
+        old_list[i] = new_item
+        for _, fn in ipairs(minetestia.registered_on_player_inventory_change) do
+          fn(player, old_item, new_item, i, action_name)
+        end
       end
     end
-  end
+  end)
 end
 
 ---------------------
 -- REGISTER EVENTS --
 ---------------------
 
-local delay = 0.1
 local handler = minetestia.handle_player_inventory_changes
 
 minetest.register_on_joinplayer(
@@ -58,15 +59,15 @@ minetest.register_on_player_inventory_action(handler)
 minetest.register_on_dignode(function(_, _, player) handler(player, "dig") end)
 
 minetest.register_on_placenode(
-  function(_, _, player) minetest.after(delay, handler, player, "place") end
+  function(_, _, player) handler(player, "place") end
 )
 
 minetest.register_on_item_pickup(
-  function(_, player) minetest.after(delay, handler, player, "pickup") end
+  function(_, player) handler(player, "pickup") end
 )
 
 minetest.register_on_item_eat(
-  function(_, _, _, player) minetest.after(delay, handler, player, "eat") end
+  function(_, _, _, player) handler(player, "eat") end
 )
 
 -----------
