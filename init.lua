@@ -6,7 +6,7 @@ minetestia = minetestia or {}
 ---@type table<string, mt.ItemStack[]>
 minetestia.player_inventory_main_lists = {}
 
----@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:"move"|"put"|"take"|"dig"|"place"|"pickup"|"eat"|string|nil)
+---@alias mf.on_player_inventory_change fun(player:mt.PlayerObjectRef, old_item:mt.ItemStack, new_item:mt.ItemStack, index:integer, action_name:"move"|"put"|"take"|"dig"|"place"|"pickup"|"eat"|string|nil, inventory_info:mt.InvInfo|nil)
 
 -- All registered inventory change handlers.
 ---@type {[integer]: mf.on_player_inventory_change}
@@ -20,8 +20,9 @@ end
 
 -- Detect and trigger callbacks manually.
 ---@param player mt.PlayerObjectRef|table
----@param action_name string|nil
-function minetestia.handle_player_inventory_changes(player, action_name)
+---@param action string|nil
+---@param info mt.InvInfo|nil
+function minetestia.handle_player_inventory_changes(player, action, info)
   minetest.after(0.1, function()
     if not player.is_player or not player:is_player() then return end
     local inv = player:get_inventory()
@@ -34,7 +35,7 @@ function minetestia.handle_player_inventory_changes(player, action_name)
       if new_item ~= old_item then
         old_list[i] = new_item
         for _, fn in ipairs(minetestia.registered_on_player_inventory_change) do
-          fn(player, old_item, new_item, i, action_name)
+          fn(player, old_item, new_item, i, action, info)
         end
       end
     end
@@ -54,7 +55,11 @@ minetest.register_on_joinplayer(
   end
 )
 
-minetest.register_on_player_inventory_action(handler)
+minetest.register_on_player_inventory_action(
+  function(player, action, _, inventory_info)
+    handler(player, action, inventory_info)
+  end
+)
 
 minetest.register_on_dignode(function(_, _, player) handler(player, "dig") end)
 
