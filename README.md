@@ -1,6 +1,6 @@
 # Inventory Change Callback
 
-Provide a global callback for handling player inventory changes.
+Provide a universal global callback for handling player inventory changes.
 
 It can handle all types of natural events (`"move"`, `"put"`, `"take"`, `"dig"`,
 `"place"`, `"pickup"`, `"eat"`), except the changes made manually in code. So
@@ -37,8 +37,3 @@ See [test.lua](test.lua).
 ## Debug mode
 
 Uncomment lines at the bottom of [init.lua](init.lua).
-
-## TODO
-
-Currently it handles only the `"main"` inventory list. If you need others,
-please create an issue or a pull request.
