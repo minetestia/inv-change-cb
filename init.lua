@@ -84,6 +84,9 @@ local players_online
 if minetest.is_singleplayer() then
   ---@return {[1]: mt.PlayerObjectRef|nil}
   players_online = function()
+    if not minetestia.player_inventory_main_lists.singleplayer then
+      return {}
+    end
     return { minetest.get_player_by_name "singleplayer" }
   end
 else
