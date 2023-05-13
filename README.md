@@ -2,10 +2,13 @@
 
 Provide a universal global callback for handling player inventory changes.
 
-It can handle all types of natural events (`"move"`, `"put"`, `"take"`, `"dig"`,
-`"place"`, `"pickup"`, `"eat"`), except the changes made manually in code. So
-please don't forget to call `minetestia.handle_player_inventory_changes(player)`
-after using inventory changing functions:
+## Information for GAME developers
+
+The mod can handle all types of natural events (`"move"`, `"put"`, `"take"`,
+`"dig"`, `"place"`, `"pickup"`, `"eat"`), except the changes made manually in
+code. So please don't forget to call
+`minetestia.handle_player_inventory_changes(player)` after using inventory
+changing functions:
 
 ```lua
 local name = player:get_player_name()
@@ -28,6 +31,16 @@ minetestia.handle_player_inventory_changes(player, "custom")
 
 ```lua
 minetestia.player_inventory_main_lists[name] = list
+```
+
+## Information for MOD developers
+
+It is actually not necessary to add a handler to every custom event in the game.
+Alternatively, you can just use this workaround, which will check the inventory
+of all players in the game every second:
+
+```lua
+minetest.register_on_mods_loaded(minetestia.auto_detect_inventory_changes)
 ```
 
 ## Usage
