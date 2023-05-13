@@ -75,6 +75,36 @@ minetest.register_on_item_eat(
   function(_, _, _, player) handler(player, "eat") end
 )
 
+-------------------------------------
+-- WORKAROUND FOR THIRD-PARTY MODS --
+-------------------------------------
+
+local handle_changes = minetestia.handle_player_inventory_changes
+local players_online
+if minetest.is_singleplayer() then
+  ---@return {[1]: mt.PlayerObjectRef|nil}
+  players_online = function()
+    return { minetest.get_player_by_name "singleplayer" }
+  end
+else
+  players_online = minetest.get_connected_players
+end
+
+-- Using this function is not recommended, but if you don't have the ability to
+-- handle events from someone else's mods, just turn it on with one line:
+-- ```lua
+-- minetest.register_on_mods_loaded(minetestia.auto_detect_inventory_changes)
+-- ```
+function minetestia.auto_detect_inventory_changes()
+  minetest.after(1, function()
+    for _, player in ipairs(players_online()) do
+      -- log(player:get_player_name())
+      handle_changes(player, "auto")
+    end
+    minetestia.auto_detect_inventory_changes()
+  end)
+end
+
 -----------
 -- DEBUG --
 -----------
