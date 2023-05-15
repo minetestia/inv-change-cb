@@ -50,3 +50,9 @@ See [test.lua](test.lua).
 ## Debug mode
 
 Uncomment lines at the bottom of [init.lua](init.lua).
+
+---
+
+This mod uses [Minetest LSP-API] annotations.
+
+[Minetest LSP-API]: https://github.com/minetest-toolkit/minetest-lsp-api
