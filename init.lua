@@ -1,5 +1,4 @@
--- The global scope for the all _**Minetestia Forge**_ mods.
----@diagnostic disable-next-line: lowercase-global
+-- The global scope for all _**Minetestia Forge**_ mods.
 minetestia = minetestia or {}
 
 -- All players inventory `"main"` lists, indexed by player name.
