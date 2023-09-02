@@ -1,3 +1,6 @@
+# THIS REPO IS OUTDATED
+Moved here: <https://notabug.org/minetestia/inv_change_cb>
+
 # Inventory Change Callback
 
 Provide a universal global callback for handling player inventory changes.
